@@ -10,6 +10,7 @@
       height: 100%;
       overflow: hidden;
       font-family: Arial, sans-serif;
+      cursor: pointer;
     }
 
     .bg {
@@ -44,19 +45,27 @@
   <div class="bg"></div>
   <div class="center-text">TmaqnirXploit was Here</div>
 
-  <audio id="bgAudio" autoplay>
-    <source src="https://ia801209.us.archive.org/14/items/NasheedFILISTIN/Nasheed/Radidu%20Allahu%20Akbar.mp3">
+  <audio id="bgAudio">
+    <source src="https://ia801209.us.archive.org/14/items/NasheedFILISTIN/Nasheed/Radidu%20Allahu%20Akbar.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
 
   <script>
     const audio = document.getElementById('bgAudio');
+    let isPlaying = false;
 
-    audio.addEventListener('ended', function() {
-      setTimeout(() => {
-        audio.currentTime = 0;
+    document.body.addEventListener('click', () => {
+      if (!isPlaying) {
+        isPlaying = true;
         audio.play();
-      }, 3000); // 3 detik jeda setelah selesai
+
+        audio.addEventListener('ended', () => {
+          setTimeout(() => {
+            audio.currentTime = 0;
+            audio.play();
+          }, 3000); // jeda 3 detik
+        });
+      }
     });
   </script>
 </body>
